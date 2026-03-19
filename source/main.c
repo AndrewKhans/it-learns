@@ -3,27 +3,30 @@
 #include <stdlib.h>
 
 void testMatrixMath() {
-    printf("Creating two matricies\n");
-    Matrix m1 = generateMatrix(4, 2);
-    m1.data[3] = 2; m1.data[5] = 1;
+    Matrix a, b, c;
 
-    Matrix m2 = generateMatrix(2, 5);
-
+    a = generateMatrixFilled(4, 2, 1.0f);
+    a.data[0] = 2; a.data[3] = 2; a.data[5] = 3; a.data[7] = 2;
     printf("A:\n");
-    printMatrix(m1);
+    printMatrix(a);
+
+
+    printf("A, scaled by 5:\n");
+    scaleMatrix(a, 5);
+    printMatrix(a);
+
+    b = generateMatrixFilled(2, 5, 1.0f);
+    b.data[0] = 2; b.data[3] = 2; b.data[5] = 3; b.data[7] = 2;
     printf("B:\n");
-    printMatrix(m2);
+    printMatrix(b);
 
-    printf("Scaling matrix A by 5\n");
-    scaleMatrix(m1, 5);
+    printf("A*B = C:\n");
+    c = multiplyMatrices(a, b);
+    printMatrix(c);
 
-    printf("A:\n");
-    printMatrix(m1);
-    printf("B:\n");
-    printMatrix(m2);
-
-    deleteMatrix(&m1);
-    deleteMatrix(&m2);
+    deleteMatrix(&a);
+    deleteMatrix(&b);
+    deleteMatrix(&c);
 
     // try printing the deleted matrix now and see what happens
 }
