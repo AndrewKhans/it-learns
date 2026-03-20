@@ -3,16 +3,7 @@
 #include <stdio.h>
 #include <assert.h>
 
-// Todo: Make a macro for addressing the matrix easier with x, y
 // Todo: Can we cache some values or do a partial sums during matrix multiplication?
-
-float mget(Matrix m, size_t row, size_t col) {
-    return m.data[col + row*m.cols];
-}
-
-void mset(Matrix m, size_t row, size_t col, float val) {
-    m.data[col + row*m.cols] = val;
-}
 
 Matrix generateMatrix(size_t rows, size_t cols) {
     Matrix m;
@@ -32,10 +23,8 @@ Matrix generateMatrix(size_t rows, size_t cols) {
 }
 
 Matrix generateMatrixFilled(size_t rows, size_t cols, float fillValue) {
-    Matrix m;
+    Matrix m = generateMatrix(rows, cols);
 
-    m = generateMatrix(rows, cols);
-    // Todo: use memset instead of loop
     for (size_t i = 0; i < m.size; i++) {
         m.data[i] = fillValue;
     }
@@ -55,6 +44,7 @@ void deleteMatrix(Matrix *m) {
 void printMatrix(Matrix m) {
 
     // TODO: Add padding to account for some numbers being longer
+    // This does not have to be efficient, as printing is only used during testing/debugging
     // uint8_t digits = 0;
     // uint8_t mostDigits = 0;
     // for (size_t i = 0; i < m.size; i++) {
@@ -66,57 +56,63 @@ void printMatrix(Matrix m) {
     for (size_t i = 0; i < m.rows; i++) {
         printf("[ ");
         for (size_t j = 0; j < m.cols; j++) {
-            printf("%.2f ", mget(m, i, j));
+            printf("%.2f ", m.data[i*m.cols + j]);
         }
         printf("]\n");
     }
     printf("\n");
 }
 
-void scaleMatrix(Matrix m, float s) {
-    for (size_t i = 0; i < m.size; i++)
-        m.data[i] *= s;
-}
+Matrix scaleMatrix(Matrix m, float s) {
+    Matrix ret = generateMatrix(m.rows, m.cols);
 
-// Multiply elements of Row i from Matrix a by Col J from Matrix b
-float rowColProdSum(Matrix a, Matrix b, size_t a_row_index, size_t b_col_index) {
-    float sum = 0;
-
-    for (size_t i = 0; i < a.cols; i++) {
-        sum += mget(a, a_row_index, i) * mget(b, i, b_col_index);
+    for (size_t i = 0; i < m.size; i++) {
+        ret.data[i] = m.data[i]*s;
     }
 
-    return sum;
+    return ret;
 }
 
+// Todo: Try transposing b before multiplying, so that we don't jump around in memory
 Matrix multiplyMatrices(Matrix a, Matrix b) {
-    assert(a.cols == b.rows); // Required property of matrix multiplication
+    assert(a.cols == b.rows);
 
-    Matrix c;
-    float prodSum;
-
-    c = generateMatrix(a.rows, b.cols);
+    Matrix c = generateMatrix(a.rows, b.cols);
+    float tempSum;
+    size_t a_row_offset, c_row_offset;
 
     for (size_t a_row_index = 0; a_row_index < a.rows; a_row_index++) {
+        // Cache values to avoid recomputing in inner loops
+        a_row_offset = a_row_index*a.cols;
+        c_row_offset = a_row_index*c.cols;
         for (size_t b_col_index = 0; b_col_index < b.cols; b_col_index++) {
-            prodSum = rowColProdSum(a, b, a_row_index, b_col_index);
-            mset(c, a_row_index, b_col_index, prodSum);
+            tempSum = 0;
+
+            // Multiply elements of our row from Matrix a by our col from Matrix b
+            for (size_t i = 0; i < a.cols; i++) {
+                tempSum += a.data[a_row_offset + i] * b.data[i*b.cols + b_col_index];
+            }
+
+            c.data[c_row_offset + b_col_index] = tempSum;
         }
     }
-
     return c;
 }
 
 Matrix elementwiseMultiplyMatrices(Matrix a, Matrix b) {
     assert(a.rows == b.rows && a.cols == b.cols);
 
-    Matrix c;
-
-    c = generateMatrix(a.rows, a.cols);
+    Matrix c = generateMatrix(a.rows, a.cols);
 
     for (size_t i = 0; i < a.size; i++) {
         c.data[i] = a.data[i] * b.data[i];
     }
 
     return c;
+}
+
+Matrix transpose(Matrix m) {
+    // practice: https://leetcode.com/problems/transpose-matrix/
+
+    return m;
 }

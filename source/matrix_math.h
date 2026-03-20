@@ -17,11 +17,11 @@ void deleteMatrix(Matrix *m);
 void printMatrix(Matrix m);
 
 // Math Functions
-void scaleMatrix(Matrix m, float s);
+Matrix scaleMatrix(Matrix m, float s);
 Matrix multiplyMatrices(Matrix a, Matrix b);
 Matrix elementwiseMultiplyMatrices(Matrix a, Matrix b);
-// TODO: elementwiseMultiplyMatrices
-// TODO: transpose
+Matrix transpose(Matrix m);
+// TODO: Transpose
 // TODO: Divide
 // TODO: Add
 // TODO: Subtract

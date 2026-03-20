@@ -10,10 +10,10 @@ void testMatrixMath() {
     printf("A:\n");
     printMatrix(a);
 
-
+    b = scaleMatrix(a, 5);
     printf("A, scaled by 5:\n");
-    scaleMatrix(a, 5);
-    printMatrix(a);
+    printMatrix(b);
+    deleteMatrix(&b);
 
     b = generateMatrixFilled(2, 5, 1.0f);
     b.data[0] = 2; b.data[3] = 2; b.data[5] = 3; b.data[7] = 2;
@@ -22,6 +22,17 @@ void testMatrixMath() {
 
     printf("A*B = C:\n");
     c = multiplyMatrices(a, b);
+    printMatrix(c);
+
+    printf("New B:\n");
+    deleteMatrix(&b);
+    b = generateMatrixFilled(4, 2, 1.0f);
+    b.data[0] = 2; b.data[3] = 2; b.data[5] = 3; b.data[7] = 2;
+    printMatrix(b);
+
+    printf("Elementwise A*B = C:\n");
+    deleteMatrix(&c);
+    c = elementwiseMultiplyMatrices(a, b);
     printMatrix(c);
 
     deleteMatrix(&a);
