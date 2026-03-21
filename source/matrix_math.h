@@ -16,13 +16,16 @@ Matrix generateMatrixFilled(size_t rows, size_t cols, float fillValue);
 void deleteMatrix(Matrix *m);
 void printMatrix(Matrix m);
 
-// Math Functions
+// Single-Matrix Operations
 Matrix scaleMatrix(Matrix m, float s);
+Matrix transposeMatrix(Matrix m);
+
+// Two-Matrix Operations
 Matrix multiplyMatrices(Matrix a, Matrix b);
 Matrix elementwiseMultiplyMatrices(Matrix a, Matrix b);
-Matrix transpose(Matrix m);
-// TODO: Transpose
+Matrix addMatrices(Matrix a, Matrix b);
+Matrix subtractMatrices(Matrix a, Matrix b);
+
 // TODO: Divide
-// TODO: Add
 // TODO: Subtract
 // TODO: Add Bias (add vector?)

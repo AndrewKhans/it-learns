@@ -1,6 +1,6 @@
 # it-learns
 
-A neural network implemented in C, without any external libraries
+A neural network, without any external libraries
 
 
 ## Todo
@@ -8,7 +8,7 @@ A neural network implemented in C, without any external libraries
 - Check for memory leaks
 
 ## Compiling
-gcc -Wall -Werror -g main.c matrix_math.c -o main
+gcc -Wall -Werror -fsanitize=address -g main.c matrix_math.c -o mai
 
 ## Resources
 - [Malik Magdon-Ismail's Machine Learning From Data](https://www.youtube.com/watch?v=a4C-yeKZl44&list=PLeSImI9eZJ99T9MXpcoN3_Y2AvrID2HlE)

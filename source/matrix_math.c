@@ -3,7 +3,19 @@
 #include <stdio.h>
 #include <assert.h>
 
-// Todo: Can we cache some values or do a partial sums during matrix multiplication?
+// Function for user to get an element. Slow, do not use internally
+float mget(Matrix m, size_t row, size_t col) {
+    size_t idx = row*m.cols + col;
+    assert(idx < m.size);
+    return m.data[idx];
+}
+
+// Function for user to set an element. Slow, do not use internally
+void mset(Matrix m, size_t row, size_t col, float val) {
+    size_t idx = row*m.cols + col;
+    assert(idx < m.size);
+    m.data[idx] = val;
+}
 
 Matrix generateMatrix(size_t rows, size_t cols) {
     Matrix m;
@@ -73,7 +85,21 @@ Matrix scaleMatrix(Matrix m, float s) {
     return ret;
 }
 
-// Todo: Try transposing b before multiplying, so that we don't jump around in memory
+Matrix transposeMatrix(Matrix m) {
+    Matrix ret = generateMatrix(m.cols, m.rows);
+    size_t mIdx = 0;
+    size_t mRow1Idx = 0;
+
+    for (size_t i = 0; i < ret.size; i++) {
+        ret.data[i] = m.data[mIdx];
+
+        mIdx += m.cols;
+        if (mIdx >= m.size) mIdx = ++mRow1Idx;
+    }
+
+    return ret;
+}
+
 Matrix multiplyMatrices(Matrix a, Matrix b) {
     assert(a.cols == b.rows);
 
@@ -111,8 +137,26 @@ Matrix elementwiseMultiplyMatrices(Matrix a, Matrix b) {
     return c;
 }
 
-Matrix transpose(Matrix m) {
-    // practice: https://leetcode.com/problems/transpose-matrix/
+Matrix addMatricies(Matrix a, Matrix b) {
+    assert(a.rows == b.rows && a.cols == b.cols);
 
-    return m;
+    Matrix c = generateMatrix(a.rows, a.cols);
+
+    for (size_t i = 0; i < a.size; i++) {
+        c.data[i] = a.data[i] + b.data[i];
+    }
+
+    return c;
+}
+
+Matrix subtractMatricies(Matrix a, Matrix b) {
+    assert(a.rows == b.rows && a.cols == b.cols);
+
+    Matrix c = generateMatrix(a.rows, a.cols);
+
+    for (size_t i = 0; i < a.size; i++) {
+        c.data[i] = a.data[i] - b.data[i];
+    }
+
+    return c;
 }

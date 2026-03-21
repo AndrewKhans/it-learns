@@ -35,6 +35,13 @@ void testMatrixMath() {
     c = elementwiseMultiplyMatrices(a, b);
     printMatrix(c);
 
+    printf("A transposed:\n");
+    deleteMatrix(&b);
+    b = transposeMatrix(a);
+    printMatrix(b);
+
+
+
     deleteMatrix(&a);
     deleteMatrix(&b);
     deleteMatrix(&c);
