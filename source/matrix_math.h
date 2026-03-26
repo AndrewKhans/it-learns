@@ -1,4 +1,8 @@
 #include <stddef.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+#define COMPARE_THRESHOLD 0.0001
 
 typedef struct Matrix {
     size_t rows;
@@ -25,7 +29,4 @@ Matrix multiplyMatrices(Matrix a, Matrix b);
 Matrix elementwiseMultiplyMatrices(Matrix a, Matrix b);
 Matrix addMatrices(Matrix a, Matrix b);
 Matrix subtractMatrices(Matrix a, Matrix b);
-
-// TODO: Divide
-// TODO: Subtract
-// TODO: Add Bias (add vector?)
+bool equalMatricies(Matrix a, Matrix b);

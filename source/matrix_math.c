@@ -1,16 +1,17 @@
-#include "matrix_math.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
+#include "matrix_math.h"
 
-// Function for user to get an element. Slow, do not use internally
+// function for user to get an element
+// do not use in loops, there is no guarantee that it gets inlined
 float mget(Matrix m, size_t row, size_t col) {
     size_t idx = row*m.cols + col;
     assert(idx < m.size);
     return m.data[idx];
 }
 
-// Function for user to set an element. Slow, do not use internally
+// function for user to set an element
 void mset(Matrix m, size_t row, size_t col, float val) {
     size_t idx = row*m.cols + col;
     assert(idx < m.size);
@@ -53,6 +54,7 @@ void deleteMatrix(Matrix *m) {
     m->size = 0;
 }
 
+// this function is not especially optimized, as we don't need prints to be efficient
 void printMatrix(Matrix m) {
 
     // TODO: Add padding to account for some numbers being longer
@@ -159,4 +161,16 @@ Matrix subtractMatricies(Matrix a, Matrix b) {
     }
 
     return c;
+}
+
+bool equalMatricies(Matrix a, Matrix b) {
+    assert(a.rows == b.rows && a.cols == b.cols);
+
+    float diff;
+    for (size_t i = 0; i < a.size; i++) {
+        diff = a.data[i] - b.data[i];
+        if (diff > -COMPARE_THRESHOLD && diff < COMPARE_THRESHOLD) return false;
+    }
+
+    return true;
 }

@@ -6,6 +6,7 @@ A neural network, without any external libraries
 ## Todo
 - Re-learn how a neural network works
 - Check for memory leaks
+- Compile with big optimizations
 
 ## Compiling
 gcc -Wall -Werror -fsanitize=address -g main.c matrix_math.c -o mai

@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "matrix_math.h"
 #include <stdlib.h>
+#include "matrix_math.h"
 
 void testMatrixMath() {
     Matrix a, b, c;
@@ -41,17 +41,33 @@ void testMatrixMath() {
     printMatrix(b);
 
 
-
     deleteMatrix(&a);
     deleteMatrix(&b);
     deleteMatrix(&c);
+}
 
-    // try printing the deleted matrix now and see what happens
+// y = XW + b
+void linearRegression() {
+    printf("Unimplemented\n");
 }
 
 int main() {
 
-    testMatrixMath();
+    printf("1: Test matrix math\n");
+    printf("Enter your desired operation: ");
+    int c = getc(stdin);
+
+    switch (c) {
+        case '1':
+            testMatrixMath();
+            break;
+        case '2':
+            linearRegression();
+        default:
+            printf("Invalid operation\n");
+    }
+
+    // printf("c as a char: \"%c\" and c as an int: \"%d\"\n", c, c);
 
     return 0;
 }
