@@ -5,50 +5,54 @@
 void testMatrixMath() {
     Matrix a, b, c;
 
-    a = generateMatrixFilled(4, 2, 1.0f);
+    a = matAllocFilled(4, 2, 1.0f);
     a.data[0] = 2; a.data[3] = 2; a.data[5] = 3; a.data[7] = 2;
     printf("A:\n");
-    printMatrix(a);
+    matPrint(a);
 
-    b = scaleMatrix(a, 5);
+    b = matScale(a, 5);
     printf("A, scaled by 5:\n");
-    printMatrix(b);
-    deleteMatrix(&b);
+    matPrint(b);
+    matDelete(&b);
 
-    b = generateMatrixFilled(2, 5, 1.0f);
+    b = matAllocFilled(2, 5, 1.0f);
     b.data[0] = 2; b.data[3] = 2; b.data[5] = 3; b.data[7] = 2;
     printf("B:\n");
-    printMatrix(b);
+    matPrint(b);
 
     printf("A*B = C:\n");
-    c = multiplyMatrices(a, b);
-    printMatrix(c);
+    c = matMultiply(a, b);
+    matPrint(c);
 
     printf("New B:\n");
-    deleteMatrix(&b);
-    b = generateMatrixFilled(4, 2, 1.0f);
+    matDelete(&b);
+    b = matAllocFilled(4, 2, 1.0f);
     b.data[0] = 2; b.data[3] = 2; b.data[5] = 3; b.data[7] = 2;
-    printMatrix(b);
+    matPrint(b);
 
     printf("Elementwise A*B = C:\n");
-    deleteMatrix(&c);
-    c = elementwiseMultiplyMatrices(a, b);
-    printMatrix(c);
+    matDelete(&c);
+    c = matElementwiseMultiply(a, b);
+    matPrint(c);
 
     printf("A transposed:\n");
-    deleteMatrix(&b);
-    b = transposeMatrix(a);
-    printMatrix(b);
+    matDelete(&b);
+    b = matTranspose(a);
+    matPrint(b);
 
 
-    deleteMatrix(&a);
-    deleteMatrix(&b);
-    deleteMatrix(&c);
+    matDelete(&a);
+    matDelete(&b);
+    matDelete(&c);
 }
 
 // y = XW + b
 void linearRegression() {
-    printf("Unimplemented\n");
+    Matrix x_input, weights, y_pred;
+
+    Matrix y_pred = matmul(X, W);
+    add_scalar(y_pred, b);
+
 }
 
 int main() {

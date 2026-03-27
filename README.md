@@ -12,4 +12,6 @@ A neural network, without any external libraries
 gcc -Wall -Werror -fsanitize=address -g main.c matrix_math.c -o mai
 
 ## Resources
-- [Malik Magdon-Ismail's Machine Learning From Data](https://www.youtube.com/watch?v=a4C-yeKZl44&list=PLeSImI9eZJ99T9MXpcoN3_Y2AvrID2HlE)
+- [Malik Magdon-Ismail's Multilayer Perceptron Lecture](https://www.youtube.com/watch?v=rGyxAx6x8Gg&list=PLcbxnci9lKlolBVPaY6hgF5v0oGwxHovT&index=22)
+
+

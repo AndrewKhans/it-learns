@@ -1,0 +1,1 @@
+Multilayer Perceptron lecture: https://www.youtube.com/watch?v=rGyxAx6x8Gg&list=PLcbxnci9lKlolBVPaY6hgF5v0oGwxHovT&index=22
