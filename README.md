@@ -1,7 +1,6 @@
 # it-learns
 
-A neural network, without any external libraries
-
+Machine learning without external libraries. Designed for running on small systems.
 
 ## Todo
 - Re-learn how a neural network works
